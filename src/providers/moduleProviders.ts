@@ -8,7 +8,6 @@ import * as vscode from 'vscode';
 import { Utils } from 'vscode-uri';
 import { getActiveTextEditor, isTerraformFile } from '../utils/vscode';
 import { LanguageClient } from 'vscode-languageclient/node';
-import TelemetryReporter from '@vscode/extension-telemetry';
 
 class ModuleProviderItem extends vscode.TreeItem {
   constructor(
@@ -34,7 +33,7 @@ export class ModuleProvidersDataProvider implements vscode.TreeDataProvider<Modu
   private readonly didChangeTreeData = new vscode.EventEmitter<void | ModuleProviderItem>();
   public readonly onDidChangeTreeData = this.didChangeTreeData.event;
 
-  constructor(ctx: vscode.ExtensionContext, private client: LanguageClient, private reporter: TelemetryReporter) {
+  constructor(ctx: vscode.ExtensionContext, private client: LanguageClient) {
     ctx.subscriptions.push(
       vscode.commands.registerCommand('terraform.providers.refreshList', () => this.refresh()),
       vscode.window.onDidChangeActiveTextEditor(async (event: vscode.TextEditor | undefined) => {
@@ -90,7 +89,7 @@ export class ModuleProvidersDataProvider implements vscode.TreeDataProvider<Modu
     }
 
     try {
-      const response = await terraform.moduleProviders(documentURI.toString(), this.client, this.reporter);
+      const response = await terraform.moduleProviders(documentURI.toString(), this.client);
       if (response === null) {
         return [];
       }
