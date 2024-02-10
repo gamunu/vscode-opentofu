@@ -6,8 +6,6 @@
 import * as path from 'path';
 import * as Mocha from 'mocha';
 import { glob } from 'glob';
-import { server } from './mocks/server';
-import { apiClient, tokenPluginId } from '../../terraformCloud';
 
 export async function run(): Promise<void> {
   // Create the mocha test
@@ -17,14 +15,6 @@ export async function run(): Promise<void> {
   });
   // integration tests require long activation time
   mocha.timeout(100000);
-  // Establish API mocking before all tests.
-  mocha.globalSetup(() => {
-    apiClient.eject(tokenPluginId);
-
-    server.listen();
-  });
-  // Clean up after the tests are finished.
-  mocha.globalTeardown(() => server.close());
 
   // const testsRoot = path.resolve(__dirname, '..');
   const testsRoot = path.resolve(__dirname);

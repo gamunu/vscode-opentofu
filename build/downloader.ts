@@ -49,7 +49,7 @@ function getExtensionInfo(): ExtensionInfo {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const pjson = require('../package.json');
   return {
-    name: pjson.name,
+    name: 'terraform',
     extensionVersion: pjson.version,
     languageServerVersion: pjson.langServer.version,
     syntaxVersion: pjson.syntax.version,
