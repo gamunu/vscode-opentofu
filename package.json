@@ -1,9 +1,9 @@
 {
-  "icon": "assets/icons/terraform_logo_mark_light_universal.png",
+  "icon": "assets/icons/opentofu_logo_universal.png",
   "name": "opentofu",
   "displayName": "OpenTofu",
   "description": "Syntax highlighting and autocompletion for OpenTofu",
-  "version": "2.29.3",
+  "version": "0.1.0",
   "publisher": "gamunu",
   "license": "MPL-2.0",
   "preview": false,
@@ -552,7 +552,7 @@
         {
           "id": "opentofu",
           "title": "OpenTofu",
-          "icon": "assets/icons/vs_code_terraform.svg"
+          "icon": "assets/icons/vs_code_opentofu.svg"
         }
       ]
     },
