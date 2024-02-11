@@ -2,6 +2,13 @@
 
  [OpenTofu Extension for Visual Studio Code (VS Code)](https://marketplace.visualstudio.com/items?itemName=gamunu.opentofu) with the [Terraform Language Server](https://github.com/hashicorp/terraform-ls) adds editing features for [OpenTofu](https://opentofu.org/) files such as syntax highlighting, IntelliSense, code navigation, code formatting, module explorer and much more!
 
+⚠️ **Important:** <span style="color: red;">This extension is not compatible with the HashiCorp Terraform extension when both are active simultaneously.</span> Using them together could lead to unexpected behavior or errors.
+
+For optimal performance and to avoid potential conflicts, we recommend using only one of these extensions at a time. If you have specific requirements for both extensions, please consider alternative solutions or workarounds.
+
+We apologize for any inconvenience this may cause, and we appreciate your understanding.
+
+
 ## Quick Start
 
 Get started writing OpenTofu configurations with VS Code in three steps:
