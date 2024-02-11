@@ -68,8 +68,8 @@ export class ModuleCallsDataProvider implements vscode.TreeDataProvider<ModuleCa
     this.svg = ctx.asAbsolutePath(path.join('assets', 'icons', 'opentofu.svg'));
 
     ctx.subscriptions.push(
-      vscode.commands.registerCommand('tofu.modules.refreshList', () => this.refresh()),
-      vscode.commands.registerCommand('tofu.modules.openDocumentation', (module: ModuleCallItem) => {
+      vscode.commands.registerCommand('opentofu.modules.refreshList', () => this.refresh()),
+      vscode.commands.registerCommand('opentofu.modules.openDocumentation', (module: ModuleCallItem) => {
         if (module.docsLink) {
           vscode.env.openExternal(vscode.Uri.parse(module.docsLink));
         }

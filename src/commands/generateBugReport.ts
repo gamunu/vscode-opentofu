@@ -22,7 +22,7 @@ interface VSCodeExtension {
 export class GenerateBugReportCommand implements vscode.Disposable {
   constructor(private ctx: vscode.ExtensionContext) {
     this.ctx.subscriptions.push(
-      vscode.commands.registerCommand('tofu.generateBugReport', async () => {
+      vscode.commands.registerCommand('opentofu.generateBugReport', async () => {
         const problemText = await vscode.window.showInputBox({
           title: 'Generate a Bug Report',
           prompt: 'Enter a short description of the problem or hit enter to submit now',

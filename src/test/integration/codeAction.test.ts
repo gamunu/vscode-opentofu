@@ -26,7 +26,7 @@ suite('code actions', () => {
     await open(docUri);
 
     const supported = [
-      new vscode.CodeAction('Format Document', vscode.CodeActionKind.Source.append('formatAll').append('opentofu')),
+      new vscode.CodeAction('Format Document', vscode.CodeActionKind.Source.append('formatAll').append('terraform')),
     ];
 
     // wait till the LS is ready to accept a code action request

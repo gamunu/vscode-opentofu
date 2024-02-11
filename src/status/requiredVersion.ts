@@ -6,8 +6,8 @@
 import * as vscode from 'vscode';
 
 const requiredVersion = vscode.languages.createLanguageStatusItem('opentofu.requiredVersion', [
-  { language: 'opentofu' },
-  { language: 'opentofu-vars' },
+  { language: 'terraform' },
+  { language: 'terraform-vars' },
 ]);
 requiredVersion.name = 'OpenTofuRequiredVersion';
 requiredVersion.detail = 'OpenTofu Required';

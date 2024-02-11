@@ -6,8 +6,8 @@
 import * as vscode from 'vscode';
 
 const installedVersion = vscode.languages.createLanguageStatusItem('opentofu.installedVersion', [
-  { language: 'opentofu' },
-  { language: 'opentofu-vars' },
+  { language: 'terraform' },
+  { language: 'terraform-vars' },
 ]);
 installedVersion.name = 'OpenTofuInstalledVersion';
 installedVersion.detail = 'OpenTofu Installed';

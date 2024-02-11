@@ -20,7 +20,7 @@ export class TerraformLSCommands implements vscode.Disposable {
           }
         }
       }),
-      vscode.commands.registerCommand('tofu.enableLanguageServer', async () => {
+      vscode.commands.registerCommand('opentofu.enableLanguageServer', async () => {
         if (config('opentofu').get('languageServer.enable') === true) {
           return;
         }
@@ -29,7 +29,7 @@ export class TerraformLSCommands implements vscode.Disposable {
 
         await config('opentofu').update('languageServer.enable', true, scope);
       }),
-      vscode.commands.registerCommand('tofu.disableLanguageServer', async () => {
+      vscode.commands.registerCommand('opentofu.disableLanguageServer', async () => {
         if (config('opentofu').get('languageServer.enable') === false) {
           return;
         }

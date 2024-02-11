@@ -6,8 +6,8 @@
 import * as vscode from 'vscode';
 
 const lsStatus = vscode.languages.createLanguageStatusItem('terraform-ls.status', [
-  { language: 'opentofu' },
-  { language: 'opentofu-vars' },
+  { language: 'terraform' },
+  { language: 'terraform-vars' },
 ]);
 lsStatus.name = 'OpenTofu LS';
 lsStatus.detail = 'OpenTofu LS';
