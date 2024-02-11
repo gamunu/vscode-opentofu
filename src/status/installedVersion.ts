@@ -5,12 +5,12 @@
 
 import * as vscode from 'vscode';
 
-const installedVersion = vscode.languages.createLanguageStatusItem('terraform.installedVersion', [
-  { language: 'terraform' },
-  { language: 'terraform-vars' },
+const installedVersion = vscode.languages.createLanguageStatusItem('opentofu.installedVersion', [
+  { language: 'opentofu' },
+  { language: 'opentofu-vars' },
 ]);
-installedVersion.name = 'TerraformInstalledVersion';
-installedVersion.detail = 'Terraform Installed';
+installedVersion.name = 'OpenTofuInstalledVersion';
+installedVersion.detail = 'OpenTofu Installed';
 
 export function setVersion(version: string) {
   installedVersion.text = version;

@@ -35,7 +35,7 @@ export class ModuleProvidersDataProvider implements vscode.TreeDataProvider<Modu
 
   constructor(ctx: vscode.ExtensionContext, private client: LanguageClient) {
     ctx.subscriptions.push(
-      vscode.commands.registerCommand('terraform.providers.refreshList', () => this.refresh()),
+      vscode.commands.registerCommand('tofu.providers.refreshList', () => this.refresh()),
       vscode.window.onDidChangeActiveTextEditor(async (event: vscode.TextEditor | undefined) => {
         const activeEditor = getActiveTextEditor();
 
@@ -47,7 +47,7 @@ export class ModuleProvidersDataProvider implements vscode.TreeDataProvider<Modu
           this.refresh();
         }
       }),
-      vscode.commands.registerCommand('terraform.providers.openDocumentation', (module: ModuleProviderItem) => {
+      vscode.commands.registerCommand('tofu.providers.openDocumentation', (module: ModuleProviderItem) => {
         if (module.docsLink) {
           vscode.env.openExternal(vscode.Uri.parse(module.docsLink));
         }

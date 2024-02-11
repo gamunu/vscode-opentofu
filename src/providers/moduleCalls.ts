@@ -68,8 +68,8 @@ export class ModuleCallsDataProvider implements vscode.TreeDataProvider<ModuleCa
     this.svg = ctx.asAbsolutePath(path.join('assets', 'icons', 'terraform.svg'));
 
     ctx.subscriptions.push(
-      vscode.commands.registerCommand('terraform.modules.refreshList', () => this.refresh()),
-      vscode.commands.registerCommand('terraform.modules.openDocumentation', (module: ModuleCallItem) => {
+      vscode.commands.registerCommand('tofu.modules.refreshList', () => this.refresh()),
+      vscode.commands.registerCommand('tofu.modules.openDocumentation', (module: ModuleCallItem) => {
         if (module.docsLink) {
           vscode.env.openExternal(vscode.Uri.parse(module.docsLink));
         }

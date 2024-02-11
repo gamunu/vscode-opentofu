@@ -15,18 +15,18 @@ suite('code actions', () => {
 
   test('supported actions', async () => {
     await vscode.workspace
-      .getConfiguration('terraform')
+      .getConfiguration('opentofu')
       .update('languageServer.enable', true, vscode.ConfigurationTarget.Workspace);
     await vscode.workspace
       .getConfiguration('editor')
       // eslint-disable-next-line @typescript-eslint/naming-convention
-      .update('codeActionsOnSave', { 'source.formatAll.terraform': true }, vscode.ConfigurationTarget.Workspace);
+      .update('codeActionsOnSave', { 'source.formatAll.opentofu': true }, vscode.ConfigurationTarget.Workspace);
 
     const docUri = getDocUri('actions.tf');
     await open(docUri);
 
     const supported = [
-      new vscode.CodeAction('Format Document', vscode.CodeActionKind.Source.append('formatAll').append('terraform')),
+      new vscode.CodeAction('Format Document', vscode.CodeActionKind.Source.append('formatAll').append('opentofu')),
     ];
 
     // wait till the LS is ready to accept a code action request

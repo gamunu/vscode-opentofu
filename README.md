@@ -222,7 +222,7 @@ Completing the snippet allows you to tab complete through each attribute and blo
 Display reference counts above top level blocks and attributes
 
 ```json
-"tofu.codelens.referenceCount": true
+"opentofu.codelens.referenceCount": true
 ```
 
 ![](docs/code_lens.png)
@@ -248,7 +248,7 @@ To enable automatic formatting, it is recommended that the following be added to
 
 > It is recommended to set `editor.defaultFormatter` to ensure that VS Code knows which extension to use to format your files. It is possible to have more than one extension installed which claim a capability to format Terraform files.
 
-When using the `editor.formatOnSaveMode` setting, only `file` is currently supported. The `modifications` or `modificationsIfAvailable` settings [use the currently configured SCM](https://code.visualstudio.com/updates/v1_49#_only-format-modified-text) to detect file line ranges that have changed and send those ranges to the formatter. The `file` setting works because `terraform fmt` was originally designed for formatting an entire file, not ranges. If you don't have an SCM enabled for the files you are editing, `modifications` won't work at all. The `modificationsIfAvailable` setting will fall back to `file` if there is no SCM and will appear to work sometimes.
+When using the `editor.formatOnSaveMode` setting, only `file` is currently supported. The `modifications` or `modificationsIfAvailable` settings [use the currently configured SCM](https://code.visualstudio.com/updates/v1_49#_only-format-modified-text) to detect file line ranges that have changed and send those ranges to the formatter. The `file` setting works because `tofu fmt` was originally designed for formatting an entire file, not ranges. If you don't have an SCM enabled for the files you are editing, `modifications` won't work at all. The `modificationsIfAvailable` setting will fall back to `file` if there is no SCM and will appear to work sometimes.
 
 If you want to use `editor.codeActionsOnSave` with `editor.formatOnSave` to automatically format Terraform files, use the following configuration:
 
@@ -258,14 +258,14 @@ If you want to use `editor.codeActionsOnSave` with `editor.formatOnSave` to auto
   "editor.defaultFormatter": "opentofu.tofu",
   "editor.formatOnSave": false,
   "editor.codeActionsOnSave": {
-    "source.formatAll.terraform": true
+    "source.formatAll.opentofu": true
   },
 },
 "[opentofu-vars]": {
   "editor.defaultFormatter": "opentofu.tofu",
   "editor.formatOnSave": false,
   "editor.codeActionsOnSave": {
-    "source.formatAll.tofu": true
+    "source.formatAll.opentofu": true
   },
 }
 ```
@@ -318,19 +318,19 @@ If you want to automatically ignore certain directories when terraform-ls indexe
 You can configure the path to the Terraform binary used by terraform-ls to perform operations inside the editor by configuring this setting:
 
 ```json
-"opentofu.languageServer.tofu.path": "C:/some/folder/path"
+"opentofu.languageServer.path": "C:/some/folder/path"
 ```
 
 You can override the opentofu execution timeout by configuring this setting:
 
 ```json
-"opentofu.languageServer.tofu.timeout": "30"
+"opentofu.languageServer.timeout": "30"
 ```
 
 You can set the path Terraform logs (`TF_LOG_PATH`) by configuring this setting:
 
 ```json
-"opentofu.languageServer.tofu.logFilePath": "C:/some/folder/path/log-{{varname}}.log"
+"opentofu.languageServer.logFilePath": "C:/some/folder/path/log-{{varname}}.log"
 ```
 
 Supports variables (e.g. timestamp, pid, ppid) via Go template syntax `{{varname}}`
