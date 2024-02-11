@@ -374,19 +374,19 @@
         "title": "OpenTofu Features",
         "order": 3,
         "properties": {
-          "opentofu.languageServer.tofu.path": {
+          "opentofu.languageServer.opentofu.path": {
             "order": 0,
             "scope": "machine",
             "type": "string",
             "description": "Path to the OpenTofu binary used by the OpenTofu Language Server"
           },
-          "opentofu.languageServer.tofu.timeout": {
+          "opentofu.languageServer.opentofu.timeout": {
             "order": 1,
             "scope": "machine",
             "type": "string",
             "description": "Overrides OpenTofu execution timeout (e.g. 30s) used by the OpenTofu Language Server"
           },
-          "opentofu.languageServer.tofu.logFilePath": {
+          "opentofu.languageServer.opentofu.logFilePath": {
             "order": 2,
             "scope": "machine",
             "type": "string",
@@ -415,51 +415,51 @@
     ],
     "commands": [
       {
-        "command": "tofu.generateBugReport",
+        "command": "opentofu.generateBugReport",
         "title": "OpenTofu: Generate Bug Report"
       },
       {
-        "command": "tofu.enableLanguageServer",
+        "command": "opentofu.enableLanguageServer",
         "title": "OpenTofu: Enable Language Server"
       },
       {
-        "command": "tofu.disableLanguageServer",
+        "command": "opentofu.disableLanguageServer",
         "title": "OpenTofu: Disable Language Server"
       },
       {
-        "command": "tofu.init",
-        "title": "OpenTofu: init"
+        "command": "opentofu.init",
+        "title": "HashiCorp Terraform: init"
       },
       {
-        "command": "tofu.initCurrent",
-        "title": "OpenTofu: init current folder",
+        "command": "opentofu.initCurrent",
+        "title": "HashiCorp Terraform: init current folder",
         "icon": "$(cloud-download)"
       },
       {
-        "command": "tofu.validate",
+        "command": "opentofu.validate",
         "title": "OpenTofu: validate"
       },
       {
-        "command": "tofu.plan",
+        "command": "opentofu.plan",
         "title": "OpenTofu: plan"
       },
       {
-        "command": "tofu.modules.refreshList",
+        "command": "opentofu.modules.refreshList",
         "title": "Refresh Module Calls",
         "icon": "$(refresh)"
       },
       {
-        "command": "tofu.providers.refreshList",
+        "command": "opentofu.providers.refreshList",
         "title": "Refresh Module Providers",
         "icon": "$(refresh)"
       },
       {
-        "command": "tofu.modules.openDocumentation",
+        "command": "opentofu.modules.openDocumentation",
         "title": "Open Documentation",
         "icon": "$(book)"
       },
       {
-        "command": "tofu.providers.openDocumentation",
+        "command": "opentofu.providers.openDocumentation",
         "title": "Open Documentation",
         "icon": "$(book)"
       }
@@ -467,70 +467,70 @@
     "menus": {
       "commandPalette": [
         {
-          "command": "tofu.enableLanguageServer",
+          "command": "opentofu.enableLanguageServer",
           "when": "config.opentofu.languageServer.enable == false"
         },
         {
-          "command": "tofu.disableLanguageServer",
+          "command": "opentofu.disableLanguageServer",
           "when": "config.opentofu.languageServer.enable == true"
         },
         {
-          "command": "tofu.init",
+          "command": "opentofu.init",
+          "when": "config.terraform.languageServer.enable == true"
+        },
+        {
+          "command": "opentofu.initCurrent",
+          "when": "config.terraform.languageServer.enable == true"
+        },
+        {
+          "command": "opentofu.validate",
           "when": "config.opentofu.languageServer.enable == true"
         },
         {
-          "command": "tofu.initCurrent",
+          "command": "opentofu.plan",
           "when": "config.opentofu.languageServer.enable == true"
         },
         {
-          "command": "tofu.validate",
-          "when": "config.opentofu.languageServer.enable == true"
-        },
-        {
-          "command": "tofu.plan",
-          "when": "config.opentofu.languageServer.enable == true"
-        },
-        {
-          "command": "tofu.modules.refreshList",
+          "command": "opentofu.modules.refreshList",
           "when": "false"
         },
         {
-          "command": "tofu.providers.refreshList",
+          "command": "opentofu.providers.refreshList",
           "when": "false"
         },
         {
-          "command": "tofu.modules.openDocumentation",
+          "command": "opentofu.modules.openDocumentation",
           "when": "false"
         },
         {
-          "command": "tofu.providers.openDocumentation",
+          "command": "opentofu.providers.openDocumentation",
           "when": "false"
         }
       ],
       "view/title": [
         {
-          "command": "tofu.modules.refreshList",
+          "command": "opentofu.modules.refreshList",
           "when": "view == opentofu.modules",
           "group": "navigation"
         },
         {
-          "command": "tofu.providers.refreshList",
+          "command": "opentofu.providers.refreshList",
           "when": "view == opentofu.providers",
           "group": "navigation"
         },
         {
-          "command": "tofu.initCurrent",
+          "command": "opentofu.initCurrent",
           "when": "view == opentofu.providers",
           "group": "navigation"
         }
       ],
       "view/item/context": [
         {
-          "command": "tofu.modules.openDocumentation",
+          "command": "opentofu.modules.openDocumentation",
           "when": "view == opentofu.modules"
         },
         {
-          "command": "tofu.providers.openDocumentation",
+          "command": "opentofu.providers.openDocumentation",
           "when": "view == opentofu.providers && viewItem == moduleProviderHasDocs"
         }
       ]

@@ -59,7 +59,7 @@ export async function activate(context: vscode.ExtensionContext): Promise<void> 
 
   const serverOptions = await getServerOptions(lsPath, outputChannel);
 
-  const initializationOptions = getInitializationOptions();
+  const initializationOptions = await getInitializationOptions();
 
   const clientOptions: LanguageClientOptions = {
     documentSelector: documentSelector,

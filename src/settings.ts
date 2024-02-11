@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import * as which from 'which';
 import { config } from './utils/vscode';
 
 export interface InitializationOptions {
@@ -33,7 +34,7 @@ export interface ValidationOptions {
   enableEnhancedValidation: boolean;
 }
 
-export function getInitializationOptions() {
+export async function getInitializationOptions() {
   /*
     This is basically a set of settings masquerading as a function. The intention
     here is to make room for this to be added to a configuration builder when
@@ -42,11 +43,21 @@ export function getInitializationOptions() {
   const validation = config('opentofu').get<ValidationOptions>('validation', {
     enableEnhancedValidation: true,
   });
+
+  const path = await getTofuPath();
+
   const terraform = config('opentofu').get<TerraformOptions>('languageServer.opentofu', {
     path: '',
     timeout: '',
     logFilePath: '',
   });
+
+  // TODO: remove this when we have a opentofu-ls
+  // If the path is not set, we will try to discover it
+  if (!terraform.path) {
+    terraform.path = path;
+  }
+
   const indexing = config('opentofu').get<IndexingOptions>('languageServer.indexing', {
     ignoreDirectoryNames: [],
     ignorePaths: [],
@@ -72,4 +83,9 @@ export function getInitializationOptions() {
   };
 
   return initializationOptions;
+}
+
+async function getTofuPath(): Promise<string> {
+  const path = await which('tofu.exe', { nothrow: true });
+  return path;
 }

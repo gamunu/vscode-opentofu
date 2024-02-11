@@ -12,19 +12,19 @@ export class TerraformCommands implements vscode.Disposable {
 
   constructor(private client: LanguageClient) {
     this.commands = [
-      vscode.commands.registerCommand('tofu.init', async () => {
+      vscode.commands.registerCommand('opentofu.init', async () => {
         await terraform.initAskUserCommand(this.client);
       }),
-      vscode.commands.registerCommand('tofu.initCurrent', async () => {
+      vscode.commands.registerCommand('opentofu.initCurrent', async () => {
         await terraform.initCurrentOpenFileCommand(this.client);
       }),
-      vscode.commands.registerCommand('tofu.apply', async () => {
+      vscode.commands.registerCommand('opentofu.apply', async () => {
         await terraform.command('apply', this.client, true);
       }),
-      vscode.commands.registerCommand('tofu.plan', async () => {
+      vscode.commands.registerCommand('opentofu.plan', async () => {
         await terraform.command('plan', this.client, true);
       }),
-      vscode.commands.registerCommand('tofu.validate', async () => {
+      vscode.commands.registerCommand('opentofu.validate', async () => {
         await terraform.command('validate', this.client);
       }),
     ];
