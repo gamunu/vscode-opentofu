@@ -616,7 +616,7 @@
     "assert": "^2.0.0",
     "chai": "^4.3.7",
     "eslint": "^8.40.0",
-    "eslint-config-prettier": "^8.8.0",
+    "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^4.2.1",
     "glob": "^10.2.2",
     "got": "^11.8.3",
