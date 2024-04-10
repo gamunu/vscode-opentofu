@@ -13,7 +13,7 @@
   ],
   "engines": {
     "npm": "~9.X",
-    "node": "~18.X",
+    "node": "~20.12.0",
     "vscode": "^1.82.3"
   },
   "langServer": {
@@ -604,7 +604,7 @@
     "@types/glob": "^8.1.0",
     "@types/jest": "^29.5.1",
     "@types/mocha": "^10.0.1",
-    "@types/node": "^16.18.36",
+    "@types/node": "^20.0.0",
     "@types/vscode": "~1.86.0",
     "@types/webpack-env": "^1.18.0",
     "@types/which": "^3.0.0",
