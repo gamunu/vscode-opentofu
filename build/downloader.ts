@@ -90,7 +90,8 @@ async function downloadLanguageServer(platform: string, architecture: string, ex
     os === 'windows'
       ? `opentofu-ls_${extInfo.languageServerVersion}_${os}_${arch}.exe`
       : `opentofu-ls_${extInfo.languageServerVersion}_${os}_${arch}`;
-  fetchVersion({
+
+  await fetchVersion({
     repository: 'gamunu/opentofu-ls',
     package: packageName,
     destination: installPath,
@@ -149,7 +150,7 @@ async function downloadFile(release: Release) {
     const dStatus = await downloader.download(); //Downloader.download() resolves with some useful properties.
 
     if (os !== 'windows' && dStatus.filePath) {
-      fs.chmodSync(dStatus.filePath, 0o744);
+      fs.chmodSync(dStatus.filePath, 0o777);
     }
 
     if (process.env.downloader_log === 'true') {
