@@ -20,7 +20,7 @@
     "version": "0.1.0"
   },
   "syntax": {
-    "version": "0.4.2"
+    "version": "0.5.0"
   },
   "qna": "https://github.com/gamunu/vscode-opentofu/discussions/categories/q-a",
   "bugs": {
