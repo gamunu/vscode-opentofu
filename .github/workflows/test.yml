@@ -1,3 +1,4 @@
+---
 name: Run tests
 
 on:
@@ -53,8 +54,8 @@ jobs:
           node-version-file: '.nvmrc'
       - name: npm install
         run: npm ci
-      - name: unit test
-        run: npm run test:unit
+      - name: Install Playwright Browsers
+        run: npx playwright install chromium
       - name: web unit
         run: npm run test:unit:web
 
@@ -88,7 +89,7 @@ jobs:
       - name: Install OpenTofu
         uses: opentofu/setup-opentofu@v1
         with:
-          tofu_version: 1.6.0
+          tofu_version: 1.7.0-beta1
       - name: Tofu version
         run: tofu version
       - name: Clean Install Dependencies

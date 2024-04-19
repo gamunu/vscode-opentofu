@@ -3,10 +3,14 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import got from 'got';
 import * as fs from 'fs';
 import * as path from 'path';
-import Downloader from 'nodejs-file-downloader';
+import axios from 'axios';
+
+async function fileFromUrl(url: string): Promise<Buffer> {
+  const response = await axios.get(url, { responseType: 'arraybuffer' });
+  return Buffer.from(response.data, 'binary');
+}
 
 export interface Release {
   repository: string;
@@ -126,8 +130,10 @@ async function downloadSyntax(info: ExtensionInfo) {
   if (process.env.downloader_log === 'true') {
     console.log(`Downloading: ${url}`);
   }
-  const content = await got({ url }).text();
-  fs.writeFileSync(fpath, content);
+
+  const buffer = await fileFromUrl(url);
+  fs.writeFileSync(fpath, buffer);
+
   if (process.env.downloader_log === 'true') {
     console.log(`Download completed: ${fpath}`);
   }
@@ -140,23 +146,24 @@ export async function fetchVersion(release: Release): Promise<void> {
 
 async function downloadFile(release: Release) {
   const url = `https://github.com/${release.repository}/releases/download/v${release.version}/${release.package}`;
-  const downloader = new Downloader({
-    url: url, //If the file name already exists, a new file with the name 200MB1.zip is created.
-    directory: release.destination, //This folder will be created, if it doesn't exist.
-    fileName: release.fileName,
-  });
+
+  const fpath = path.join(release.destination, release.fileName);
 
   try {
-    const dStatus = await downloader.download(); //Downloader.download() resolves with some useful properties.
+    //fs.mkdirSync(release.destination);
 
-    if (os !== 'windows' && dStatus.filePath) {
-      fs.chmodSync(dStatus.filePath, 0o777);
+    const buffer = await fileFromUrl(url);
+    fs.writeFileSync(fpath, buffer);
+
+    if (os !== 'windows' && fpath) {
+      fs.chmodSync(fpath, 0o777);
     }
 
     if (process.env.downloader_log === 'true') {
       console.log(`Download completed`);
     }
   } catch (error) {
+    console.log(error);
     throw new Error(`Release download failed version: ${release.version}, fileName: ${release.fileName}`);
   }
 }

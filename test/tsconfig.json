@@ -13,7 +13,6 @@
     "experimentalDecorators": true,
     "strict": true /* enable all strict type-checking options */,
     "forceConsistentCasingInFileNames": true,
-    "esModuleInterop": true,
     "composite": true
   }
 }
