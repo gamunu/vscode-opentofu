@@ -12,15 +12,15 @@
     "workspace"
   ],
   "engines": {
-    "npm": "~9.X",
-    "node": "~18.X",
+    "npm": "~10.X",
+    "node": "~20.X",
     "vscode": "^1.82.3"
   },
   "langServer": {
-    "version": "0.32.7"
+    "version": "0.1.0"
   },
   "syntax": {
-    "version": "0.4.2"
+    "version": "0.5.0"
   },
   "qna": "https://github.com/gamunu/vscode-opentofu/discussions/categories/q-a",
   "bugs": {
@@ -621,38 +621,37 @@
     "download:artifacts": "ts-node ./build/downloader.ts",
     "vscode:prepublish": "npm run compile:prod",
     "package": "vsce package",
-    "test": "npm run compile:test && node ./out/test/runTest.js",
+    "test": "npm run compile:test && vscode-test",
     "test:unit": "jest",
     "test:unit:web": "npm run compile && vscode-test-web --headless --browser=chromium --extensionDevelopmentPath=. --extensionTestsPath=./out/web/test/integration/index.js",
     "lint": "eslint src --ext ts",
     "prettier": "prettier \"**/*.+(js|json|ts)\"",
     "format": "npm run prettier -- --write",
-    "check-format": "npm run prettier -- --check"
+    "check-format": "npm run prettier -- --check",
+    "wdio": "npm run compile && cd test && npm run wdio"
   },
   "dependencies": {
     "@zodios/core": "^10.9.2",
     "@zodios/plugins": "^10.6.0",
-    "axios": "^1.4.0",
-    "semver": "^7.5.4",
+    "axios": "^1.6.8",
     "vscode-languageclient": "8.1.0",
     "vscode-uri": "^3.0.7",
     "which": "^4.0.0",
     "zod": "^3.21.4"
   },
   "devDependencies": {
-    "@hashicorp/js-releases": "^1.7.1",
     "@playwright/browser-chromium": "^1.39.0",
     "@types/chai": "^4.3.5",
     "@types/glob": "^8.1.0",
-    "@types/jest": "^29.5.1",
     "@types/mocha": "^10.0.1",
     "@types/node": "^16.18.36",
     "@types/vscode": "~1.86.0",
     "@types/webpack-env": "^1.18.0",
-    "@types/which": "^3.0.0",
+    "@types/which": "^3.0.3",
     "@typescript-eslint/eslint-plugin": "^7.0.0",
     "@typescript-eslint/parser": "^7.0.0",
-    "@vscode/test-electron": "^2.3.8",
+    "@vscode/test-cli": "^0.0.9",
+    "@vscode/test-electron": "^2.3.9",
     "@vscode/test-web": "^0.0.52",
     "@vscode/vsce": "^2.19.0",
     "assert": "^2.0.0",
@@ -660,14 +659,10 @@
     "eslint": "^8.40.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "glob": "^10.2.2",
-    "got": "^11.8.3",
-    "jest": "^29.5.0",
     "mocha": "^10.2.0",
     "msw": "^2.0.0",
     "prettier": "^2.8.8",
     "process": "^0.11.10",
-    "ts-jest": "^29.1.0",
     "ts-loader": "^9.4.2",
     "ts-node": "^10.9.1",
     "typescript": "^5.1.3",

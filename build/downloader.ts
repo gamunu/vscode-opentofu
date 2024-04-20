@@ -3,10 +3,23 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import got from 'got';
 import * as fs from 'fs';
 import * as path from 'path';
-import * as releases from '@hashicorp/js-releases';
+import axios from 'axios';
+
+async function fileFromUrl(url: string): Promise<Buffer> {
+  const response = await axios.get(url, { responseType: 'arraybuffer' });
+  return Buffer.from(response.data, 'binary');
+}
+
+export interface Release {
+  repository: string;
+  package: string;
+  destination: string;
+  fileName: string;
+  version: string;
+  extract: boolean;
+}
 
 function getPlatform(platform: string) {
   if (platform === 'win32') {
@@ -49,7 +62,7 @@ function getExtensionInfo(): ExtensionInfo {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const pjson = require('../package.json');
   return {
-    name: 'terraform',
+    name: 'opentofu',
     extensionVersion: pjson.version,
     languageServerVersion: pjson.langServer.version,
     syntaxVersion: pjson.syntax.version,
@@ -63,58 +76,47 @@ async function downloadLanguageServer(platform: string, architecture: string, ex
   const buildDir = path.basename(cwd);
   const repoDir = cwd.replace(buildDir, '');
   const installPath = path.join(repoDir, 'bin');
-  const filename = process.platform === 'win32' ? 'terraform-ls.exe' : 'terraform-ls';
+  const filename = process.platform === 'win32' ? 'opentofu-ls.exe' : 'opentofu-ls';
   const filePath = path.join(installPath, filename);
   if (fs.existsSync(filePath)) {
     if (process.env.downloader_log === 'true') {
-      console.log(`Terraform LS exists at ${filePath}. Exiting`);
+      console.log(`OpenTofu LS exists at ${filePath}. Exiting`);
     }
     return;
   }
 
   fs.mkdirSync(installPath);
 
-  // userAgent = `Terraform-VSCode/${extensionVersion} VSCode/${vscodeVersion}`;
-  const ciBuild = process.env.CI;
-  const runnerLocation = ciBuild ? `CLI-Downloader GitHub-Actions` : `CLI-Downloader`;
-  const userAgent = `Terraform-VSCode/${extInfo.extensionVersion} ${runnerLocation} (${platform}; ${architecture})`;
-
-  const release = await releases.getRelease('terraform-ls', extInfo.languageServerVersion, userAgent, extInfo.preview);
-
   const os = getPlatform(platform);
   const arch = getArch(architecture);
 
-  const build = release.getBuild(os, arch);
-  if (!build) {
-    throw new Error(`Install error: no matching terraform-ls binary for  ${os}/${arch}`);
-  }
+  const packageName =
+    os === 'windows'
+      ? `opentofu-ls_${extInfo.languageServerVersion}_${os}_${arch}.exe`
+      : `opentofu-ls_${extInfo.languageServerVersion}_${os}_${arch}`;
 
-  if (process.env.downloader_log === 'true') {
-    console.log(build);
-  }
-
-  const zipfile = path.resolve(installPath, `terraform-ls_v${release.version}.zip`);
-  await release.download(build.url, zipfile, userAgent);
-  await release.verify(zipfile, build.filename);
-  await release.unpack(installPath, zipfile);
-
-  fs.rmSync(zipfile, {
-    recursive: true,
+  await fetchVersion({
+    repository: 'gamunu/opentofu-ls',
+    package: packageName,
+    destination: installPath,
+    fileName: filename,
+    version: extInfo.languageServerVersion,
+    extract: false,
   });
 }
 
 async function downloadSyntax(info: ExtensionInfo) {
   const release = `v${info.syntaxVersion}`;
 
-  const productName = info.name.replace('-preview', '');
-  const fileName = `${productName}.tmGrammar.json`;
+  const productName = 'terraform'.replace('-preview', '');
+  const executable = `${productName}.tmGrammar.json`;
 
   const cwd = path.resolve(__dirname);
   const buildDir = path.basename(cwd);
   const repoDir = cwd.replace(buildDir, '');
   const installPath = path.join(repoDir, 'syntaxes');
 
-  const fpath = path.join(installPath, fileName);
+  const fpath = path.join(installPath, executable);
   if (fs.existsSync(fpath)) {
     if (process.env.downloader_log === 'true') {
       console.log(`Syntax path exists at ${fpath}. Exiting`);
@@ -124,14 +126,63 @@ async function downloadSyntax(info: ExtensionInfo) {
 
   fs.mkdirSync(installPath);
 
-  const url = `https://github.com/hashicorp/syntax/releases/download/${release}/${fileName}`;
+  const url = `https://github.com/hashicorp/syntax/releases/download/${release}/${executable}`;
   if (process.env.downloader_log === 'true') {
     console.log(`Downloading: ${url}`);
   }
-  const content = await got({ url }).text();
-  fs.writeFileSync(fpath, content);
+
+  const buffer = await fileFromUrl(url);
+  fs.writeFileSync(fpath, buffer);
+
   if (process.env.downloader_log === 'true') {
     console.log(`Download completed: ${fpath}`);
+  }
+}
+
+export async function fetchVersion(release: Release): Promise<void> {
+  validateRelease(release);
+  await downloadFile(release);
+}
+
+async function downloadFile(release: Release) {
+  const url = `https://github.com/${release.repository}/releases/download/v${release.version}/${release.package}`;
+
+  const fpath = path.join(release.destination, release.fileName);
+
+  try {
+    //fs.mkdirSync(release.destination);
+
+    const buffer = await fileFromUrl(url);
+    fs.writeFileSync(fpath, buffer);
+
+    if (os !== 'windows' && fpath) {
+      fs.chmodSync(fpath, 0o777);
+    }
+
+    if (process.env.downloader_log === 'true') {
+      console.log(`Download completed`);
+    }
+  } catch (error) {
+    console.log(error);
+    throw new Error(`Release download failed version: ${release.version}, fileName: ${release.fileName}`);
+  }
+}
+
+function validateRelease(release: Release) {
+  if (!release.repository) {
+    throw new Error('Missing release repository');
+  }
+
+  if (!release.package) {
+    throw new Error('Missing release package name');
+  }
+
+  if (!release.destination) {
+    throw new Error('Missing release destination');
+  }
+
+  if (!release.version) {
+    throw new Error('Missing release version');
   }
 }
 
