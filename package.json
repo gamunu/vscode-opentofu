@@ -50,6 +50,7 @@
   "activationEvents": [
     "onView:opentofu-modules",
     "workspaceContains:**/*.tf",
+    "workspaceContains:**/*.tofu",
     "workspaceContains:**/*.tfvars"
   ],
   "main": "./out/extension",
@@ -65,7 +66,8 @@
           "hcl"
         ],
         "extensions": [
-          ".tf"
+          ".tf",
+          ".tofu"
         ],
         "configuration": "./language-configuration.json"
       },
