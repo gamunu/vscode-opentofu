@@ -69,6 +69,7 @@ export async function activate(context: vscode.ExtensionContext): Promise<void> 
     synchronize: {
       fileEvents: [
         vscode.workspace.createFileSystemWatcher('**/*.tf'),
+        vscode.workspace.createFileSystemWatcher('**/*.tofu'),
         vscode.workspace.createFileSystemWatcher('**/*.tfvars'),
         vscode.workspace.createFileSystemWatcher('**/*.tfstack.hcl'),
         vscode.workspace.createFileSystemWatcher('**/*.tfdeploy.hcl'),

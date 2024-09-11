@@ -61,7 +61,7 @@ HCL syntax is checked for e.g. missing control characters like `}`, `"` or other
 
 ![](docs/validation-rule-hcl.png)
 
-Enhanced validation of selected OpenTofu language constructs in both `*.tf` and `*.tfvars` files based on detected OpenTofu version and provider versions is also provided. This can highlight deprecations, missing required attributes or blocks, references to undeclared variables and more, [as documented](https://github.com/hashicorp/terraform-ls/blob/main/docs/validation.md#enhanced-validation).
+Enhanced validation of selected OpenTofu language constructs in `*.tf`, `*.tofu` and `*.tfvars` files based on detected OpenTofu version and provider versions is also provided. This can highlight deprecations, missing required attributes or blocks, references to undeclared variables and more, [as documented](https://github.com/hashicorp/terraform-ls/blob/main/docs/validation.md#enhanced-validation).
 
 ![](docs/validation-rule-missing-attribute.png)
 
