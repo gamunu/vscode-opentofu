@@ -1,3 +1,18 @@
+# ⚠️ DEPRECATED - Repository Moved
+
+**This repository is no longer maintained. Please use the new official repository:**
+
+**➡️ [https://github.com/opentofu/vscode-opentofu](https://github.com/opentofu/vscode-opentofu)**
+
+**New VS Code Extension:** [https://marketplace.visualstudio.com/items?itemName=OpenTofu.vscode-opentofu](https://marketplace.visualstudio.com/items?itemName=OpenTofu.vscode-opentofu)
+
+The OpenTofu VS Code extension is now officially maintained by the OpenTofu team. Please:
+- Install the extension from the new marketplace listing
+- Report issues in the new repository
+- Contribute to the new repository
+
+---
+
 # OpenTofu Extension for Visual Studio Code
 
 [OpenTofu Extension for Visual Studio Code (VS Code)](https://marketplace.visualstudio.com/items?itemName=gamunu.opentofu) with the [Terraform Language Server](https://github.com/hashicorp/terraform-ls) adds editing features for [OpenTofu](https://opentofu.org/) files such as syntax highlighting, IntelliSense, code navigation, code formatting, module explorer and much more!
